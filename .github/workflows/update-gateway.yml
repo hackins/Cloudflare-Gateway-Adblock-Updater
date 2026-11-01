@@ -16,6 +16,13 @@ jobs:
         uses: actions/checkout@v7
         with:
           ref: personal
+          fetch-depth: 1
+      - name: Fetch personal branches and tags
+        run: |
+          git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin \
+            '+refs/heads/personal*:refs/remotes/origin/personal*' \
+            '+refs/tags/personal*:refs/tags/personal*'
+
 
       - name: Set up Python
         uses: actions/setup-python@v7
